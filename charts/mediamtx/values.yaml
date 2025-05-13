@@ -1,0 +1,29 @@
+# Values needed for MediaMTX
+
+# Default values for mediamtx
+image:
+  repository: bluenviron/mediamtx
+  tag: latest-ffmpeg
+  pullPolicy: Always
+
+# The path to the videos directory
+videoPath: /opt/teknoir/mediamtx/videos
+# Videos to be installed via a shared mounted host path (volume)
+videos: []
+# Commands to run inside the container
+commands: []
+# Default annotations
+annotations:
+  teknoir.org/managed-by: devstudio
+resources:
+  limits:
+    cpu: 2000m
+    memory: 2048Mi
+  requests:
+    cpu: 400m
+    memory: 256Mi
+
+nodePort:
+  enabled: false
+  rtspPort: 31554
+  grpcPort: 31334

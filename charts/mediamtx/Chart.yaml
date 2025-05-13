@@ -1,0 +1,7 @@
+apiVersion: v2
+name: mediamtx
+description: A Helm chart for MediaMTX
+
+type: application
+version: 0.0.1
+appVersion: "1.12.2"
