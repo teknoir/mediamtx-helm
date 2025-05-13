@@ -10,7 +10,6 @@ spec:
   type: {{ if .Values.nodePort.enabled }}NodePort{{ else }}ClusterIP{{ end }}
   ports:
     - name: rtsp
-      nodePort: 31885
       {{- if .Values.nodePort.enabled }}
       nodePort: {{ .Values.nodePort.rtspPort }}
       {{- end }}
