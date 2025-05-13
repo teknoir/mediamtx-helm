@@ -52,12 +52,12 @@ spec:
 
 {{- range .Values.videos }}
   {{- range .commands }}
-              {{ . | indent 14 }} &
+              {{ . }} &
   {{- end }}
 {{- end }}
 
 {{- range .Values.commands }}
-              {{ . | indent 14 }} &
+              {{ . }} &
 {{- end }}
 
               # Wait for 8 hours before terminating the container for a restart
@@ -66,13 +66,13 @@ spec:
           ports:
             - name: rtsp
               containerPort: 8554
-            - name: mmtx1
+            - name: rtmp
               containerPort: 1935
-            - name: mmtx2
+            - name: hls
               containerPort: 8888
-            - name: mmtx3
+            - name: webrtc
               containerPort: 8889
-            - name: mmtx4
+            - name: srt
               containerPort: 8890
           resources:
             {{- toYaml $.Values.resources | nindent 12 }}
