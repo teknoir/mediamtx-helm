@@ -1,0 +1,8 @@
+# Values needed for MediaMTX
+
+# The path to the videos directory
+videoPath: /opt/teknoir/mediamtx/videos
+# Videos to be installed via a shared mounted host path (volume)
+videos:
+  - name: retail-demo
+    image:  us-docker.pkg.dev/teknoir/gcr.io/retail-demo-mediamtx:latest

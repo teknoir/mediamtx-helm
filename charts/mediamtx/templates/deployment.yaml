@@ -1,0 +1,87 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mediamtx
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: mediamtx
+  annotations:
+    {{- toYaml $.Values.annotations | nindent 4 }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mediamtx
+  template:
+    metadata:
+      annotations:
+        {{- toYaml $.Values.annotations | nindent 8 }}
+      labels:
+        teknoir.org/app: mediamtx
+        app: mediamtx
+    spec:
+{{- if not (empty .Values.videos) }}
+      initContainers:
+{{- range .Values.videos }}
+        - name: init-container-{{ .name }}
+          image: {{ .image }}
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: videos-volume
+              mountPath: /videos
+{{- end }}
+{{- end }}
+      containers:
+        - name: mediamtx
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MTX_PROTOCOLS
+              value: "tcp"
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              # Start MediaMTX in the background
+              /mediamtx &
+              # Wait for MediaMTX to start
+              sleep 5
+              # Start FFmpeg streams
+
+{{- range .Values.videos }}
+  {{- range .commands }}
+              {{ . | indent 14 }} &
+  {{- end }}
+{{- end }}
+
+{{- range .Values.commands }}
+              {{ . | indent 14 }} &
+{{- end }}
+
+              # Wait for 8 hours before terminating the container for a restart
+              sleep 28800
+              exit 0
+          ports:
+            - name: rtsp
+              containerPort: 8554
+            - name: mmtx1
+              containerPort: 1935
+            - name: mmtx2
+              containerPort: 8888
+            - name: mmtx3
+              containerPort: 8889
+            - name: mmtx4
+              containerPort: 8890
+          resources:
+            {{- toYaml $.Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: videos-volume
+              mountPath: /videos
+      volumes:
+        - name: videos-volume
+          hostPath:
+            # directory location on host
+            path: "{{ .Values.videoPath }}"
+            type: DirectoryOrCreate
