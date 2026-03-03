@@ -23,6 +23,8 @@ spec:
         teknoir.org/app: mediamtx
         app: mediamtx
     spec:
+      nodeSelector:
+        {{- toYaml $.Values.nodeSelector | nindent 8 }}
 {{- if not (empty .Values.videos) }}
       initContainers:
 {{- range .Values.videos }}

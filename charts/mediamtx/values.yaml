@@ -27,3 +27,5 @@ nodePort:
   enabled: false
   rtspPort: 31554
   grpcPort: 31334
+
+nodeSelector: {}
