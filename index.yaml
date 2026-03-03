@@ -3,6 +3,16 @@ entries:
   mediamtx:
   - apiVersion: v2
     appVersion: 1.12.2
+    created: "2026-03-03T12:14:27.51040237Z"
+    description: A Helm chart for MediaMTX
+    digest: 7776a21bb4e6927665e7435c9689f2487fe236fa4d5a39b79375261377c8b7d8
+    name: mediamtx
+    type: application
+    urls:
+    - https://github.com/teknoir/mediamtx-helm/releases/download/mediamtx-0.0.4/mediamtx-0.0.4.tgz
+    version: 0.0.4
+  - apiVersion: v2
+    appVersion: 1.12.2
     created: "2025-05-13T08:49:56.035390177Z"
     description: A Helm chart for MediaMTX
     digest: 34830c1a55cd5402850c5f419b4d6746c4c745598da7d74b3ab33e8eadf460ff
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://github.com/teknoir/mediamtx-helm/releases/download/mediamtx-0.0.1/mediamtx-0.0.1.tgz
     version: 0.0.1
-generated: "2025-05-13T08:49:56.035404304Z"
+generated: "2026-03-03T12:14:27.5104186Z"
