@@ -10,28 +10,27 @@ spec:
   type: {{ if .Values.nodePort.enabled }}NodePort{{ else }}ClusterIP{{ end }}
   ports:
     - name: rtsp
-      nodePort: 31885
       {{- if .Values.nodePort.enabled }}
       nodePort: {{ .Values.nodePort.rtspPort }}
       {{- end }}
       port: 8554
       protocol: TCP
       targetPort: 8554
-    - name: mmtx1
+    - name: rtmp
       port: 1935
       protocol: TCP
       targetPort: 1935
-    - name: mmtx2
+    - name: hls
       port: 8888
       protocol: TCP
       targetPort: 8888
-    - name: mmtx3
+    - name: webrtc
       port: 8889
       protocol: TCP
       targetPort: 8889
-    - name: mmtx4
+    - name: srt
       port: 8890
-      protocol: TCP
+      protocol: UDP
       targetPort: 8890
   selector:
     app: mediamtx

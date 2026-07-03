@@ -1,0 +1,64 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  title: MediaMTX
+  name: mediamtx-app
+  namespace: teknoir
+  description: MediaMTX is a real-time media server and media proxy for RTSP, RTMP, HLS, WebRTC and SRT
+  annotations:
+    'github.com/project-slug': teknoir/mediamtx-helm
+    'backstage.io/techdocs-ref': dir:.
+spec:
+  type: app
+  owner: group:teknoir/public
+  system: system:teknoir/core
+  lifecycle: production
+  dependsOn:
+    - component:teknoir/docker.io.bluenviron.mediamtx
+    - component:teknoir/mediamtx-helm
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  title: MediaMTX HelmChart
+  name: mediamtx-helm
+  namespace: teknoir
+  description: The Teknoir MediaMTX HelmChart
+  annotations:
+    'github.com/project-slug': teknoir/mediamtx-helm
+    'teknoir.org/helm-registry': teknoir.github.io/mediamtx-helm
+    'teknoir.org/helmchart': mediamtx
+    'backstage.io/techdocs-ref': dir:.
+spec:
+  type: helmchart
+  owner: group:teknoir/public
+  system: system:teknoir/core
+  lifecycle: production
+  dependsOn:
+    - component:teknoir/ghcr.io.teknoir.mediamtx-app
+  registry: teknoir.github.io/mediamtx-helm
+  helmchart: mediamtx
+  versions:
+    - 0.0.4
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  title: MediaMTX Image
+  name: docker.io.bluenviron.mediamtx
+  namespace: teknoir
+  description: MediaMTX real-time media server
+  annotations:
+    'github.com/project-slug': teknoir/mediamtx-helm
+    'backstage.io/techdocs-ref': dir:.
+spec:
+  type: image
+  owner: group:teknoir/public
+  system: system:teknoir/core
+  lifecycle: production
+  repository: docker.io/bluenviron/mediamtx
+  versions:
+    - latest-ffmpeg
