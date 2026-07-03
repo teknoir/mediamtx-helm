@@ -1,0 +1,34 @@
+site_name: MediaMTX // Teknoir
+site_description: Real-time media server, Helm chart and container image — documented for the Teknoir platform.
+
+nav:
+  - '◈ Overview': index.md
+  - '▲ MediaMTX App': app.md
+  - '❈ Helm Chart': helm.md
+  - '⬢ Container Image': image.md
+  - '✶ Add Videos & Streams': videos.md
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: black
+    accent: cyan
+  features:
+    - navigation.instant
+    - navigation.top
+    - content.code.copy
+
+extra_css:
+  - assets/futuristic.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - tables
+
+plugins:
+  - techdocs-core
